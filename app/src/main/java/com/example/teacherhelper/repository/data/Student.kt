@@ -1,4 +1,4 @@
-package com.example.teacherhelper.model
+package com.example.teacherhelper.repository.data
 
 /**
  * Студента
