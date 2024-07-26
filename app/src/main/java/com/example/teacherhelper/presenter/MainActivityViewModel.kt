@@ -4,20 +4,28 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.teacherhelper.repository.GroupsRepository
 import com.example.teacherhelper.repository.GroupsRepositoryImpl
 import com.example.teacherhelper.repository.data.Group
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 private const val LOG_TAG = "ViewM"
-class MainActivityViewModel: ViewModel() {
-    private val groupsRepository = GroupsRepositoryImpl()
+
+/**
+ * ViewModel для MainScreen
+ */
+@HiltViewModel
+class MainActivityViewModel @Inject constructor(): ViewModel() {
+    private val groupsRepository: GroupsRepository = GroupsRepositoryImpl()
 
     private val resultMutableGroups = MutableLiveData<List<Group>>()
     val resultLiveGroups: LiveData<List<Group>> = resultMutableGroups
 
-    private val resultMutableName1 = MutableLiveData<String>()
-    val resultLiveName1: LiveData<String> = resultMutableName1
-
     init {
+        loadGroups()
         Log.e(LOG_TAG,"vm created")
     }
 
@@ -26,23 +34,18 @@ class MainActivityViewModel: ViewModel() {
         super.onCleared()
     }
 
-    fun loadName(){
-        val id = 1
-        val name = groupsRepository.getStudent(id).name
-        resultMutableName1.value = name
-        Log.e(LOG_TAG, "vm load student[${id}] with name: $name")
-    }
-
     /**
      * Загрузка групп
      */
-    fun loadGroups(){
-        val groups = groupsRepository.getGroups()
-        if (groups.isNotEmpty()){
-            Log.e(LOG_TAG, "vm load groups with count: ${groups.count()}")
-            resultMutableGroups.value = groups
-        } else{
-            Log.e(LOG_TAG, "vm is empty")
+    private fun loadGroups(){
+        viewModelScope.launch {
+            val groups = groupsRepository.getGroups()
+            if (groups.isNotEmpty()){
+                Log.e(LOG_TAG, "vm load groups with count: ${groups.count()}")
+                resultMutableGroups.value = groups
+            } else{
+                Log.e(LOG_TAG, "vm is empty")
+            }
         }
     }
 }
