@@ -14,6 +14,10 @@ class ExampleData {
                 Group(1,
             "ОГЭ Информатика",
             listOf(student1,student2),
-            "ОГЭшники"))
+            "ОГЭшники")),
+        Group(2,
+            "ОГЭ Информатика",
+            listOf(student1,student2),
+            "ОГЭшники")
     )
 }
