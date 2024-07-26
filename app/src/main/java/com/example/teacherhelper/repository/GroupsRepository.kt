@@ -12,18 +12,18 @@ interface GroupsRepository {
      * @param id айди студента
      * @return студент
      */
-    fun getStudent(id: Int): Student
+    suspend fun getStudent(id: Int): Student
 
     /**
      * получить группу
      * @param id айди группы
      * @return группа
      */
-    fun getGroup(id: Int): Group
+    suspend fun getGroup(id: Int): Group
 
     /**
      * Получить все группы
      * @return список групп
      */
-    fun getGroups(): List<Group>
+    suspend fun getGroups(): List<Group>
 }
