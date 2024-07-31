@@ -2,11 +2,12 @@ package com.example.teacherhelper.repository.dao
 
 import com.example.teacherhelper.repository.data.ExampleData
 import com.example.teacherhelper.repository.data.Student
+import javax.inject.Inject
 
 /**
  * Дао для работы со студентом
  */
-class StudentDao {
+class StudentDao @Inject constructor() {
     private val data = ExampleData()
 
     /**

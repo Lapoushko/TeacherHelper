@@ -1,5 +1,7 @@
 package com.example.teacherhelper.repository.data
 
+import javax.inject.Inject
+
 /**
  * Студента
  *
@@ -8,7 +10,7 @@ package com.example.teacherhelper.repository.data
  * @property description описание ученика
  * @author lapoushko
  */
-data class Student(
+data class Student @Inject constructor(
     val id: Int,
     val name: String,
     val description: String

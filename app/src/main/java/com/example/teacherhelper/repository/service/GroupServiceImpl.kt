@@ -2,11 +2,12 @@ package com.example.teacherhelper.repository.service
 
 import com.example.teacherhelper.repository.dao.GroupDao
 import com.example.teacherhelper.repository.data.Group
+import javax.inject.Inject
 
 /**
  * Сервис, отвечающий за работу с группой студентов
  */
-class GroupServiceImpl(dao: GroupDao) : GroupService {
+class GroupServiceImpl @Inject constructor(dao: GroupDao) : GroupService {
 
     private val groupDao = dao
 

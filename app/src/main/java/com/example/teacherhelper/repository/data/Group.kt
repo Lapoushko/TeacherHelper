@@ -1,5 +1,7 @@
 package com.example.teacherhelper.repository.data
 
+import javax.inject.Inject
+
 /**
  * Группа студентов
  *
@@ -8,7 +10,7 @@ package com.example.teacherhelper.repository.data
  * @property students список студентов
  * @property description описание группы
  */
-data class Group(
+data class Group @Inject constructor(
     val id: Int,
     val name: String,
     val students: List<Student>,
