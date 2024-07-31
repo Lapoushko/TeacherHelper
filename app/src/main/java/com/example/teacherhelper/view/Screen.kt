@@ -7,11 +7,16 @@ import androidx.navigation.NamedNavArgument
  */
 sealed class Screen(
     val route: String,
-    val navArgument: List<NamedNavArgument> = emptyList()
+    val navArguments: List<NamedNavArgument> = emptyList()
 ){
     data object Main : Screen("main")
 
-    data object GroupDetail : Screen("group detail")
+    data object GroupDetail : Screen(
+        route = "groupDetail/{groupId}")
+    {
+        fun createRoute(groupId: Int) = "groupDetail/$groupId"
+    }
+
 
     data object StudentDetail : Screen("student detail")
 }
