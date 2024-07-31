@@ -26,12 +26,19 @@ class TeacherHelperApp : Application() {
     fun TeacherHelperNavHost(navController: NavHostController) {
         NavHost(navController = navController, startDestination = Screen.Main.route) {
             composable(route = Screen.Main.route){
-                MainScreen{
-                    navController.navigate(Screen.GroupDetail.route)
-                }
+                MainScreen(
+                    onClick = { group ->
+                        navController.navigate(
+                            Screen.GroupDetail.createRoute(groupId = group.id)
+                        )
+                    }
+                )
             }
-            composable(route = Screen.GroupDetail.route){
-                GroupDetailScreen()
+            composable(
+                route = Screen.GroupDetail.route){ backStackEntry ->
+                val id = backStackEntry.arguments?.getString("groupId")?.toInt()
+                    ?: 0
+                GroupDetailScreen(groupId = id)
             }
         }
     }
