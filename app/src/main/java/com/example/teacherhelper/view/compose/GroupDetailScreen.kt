@@ -1,14 +1,33 @@
 package com.example.teacherhelper.view.compose
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.Text
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.teacherhelper.presenter.GroupDetailViewModel
 
-@Preview(showBackground = true)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun GroupDetailScreen(){
-    Box {
-        Text(text = "Hello World")
-    }
+fun GroupDetailScreen(groupDetailViewModel: GroupDetailViewModel = hiltViewModel(),
+                      groupId: Int){
+    groupDetailViewModel.loadStudents(groupId)
+    Scaffold(
+        content = {
+            LazyColumn(
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+            ) {
+                items(
+                    items = groupDetailViewModel.resultLiveStudents.value ?: emptyList(),
+                    itemContent = {
+                        StudentsListItem(student = it){
+                        }
+                    }
+                )
+            }
+        }
+    )
 }
