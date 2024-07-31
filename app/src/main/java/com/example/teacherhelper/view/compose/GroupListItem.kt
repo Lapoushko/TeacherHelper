@@ -22,10 +22,8 @@ import com.example.teacherhelper.repository.data.Group
  * Item для отображения группы recycler view
  */
 @Composable
-fun GroupListItem(group: Group, onClick : () -> Unit){
-    Button(onClick = {
-        onClick()
-                     },
+fun GroupListItem(group: Group, onClick : (Group) -> Unit){
+    Button(onClick = { onClick(group) },
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 8.dp)
             .fillMaxWidth(),
