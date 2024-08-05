@@ -36,12 +36,17 @@ class GroupDetailViewModel @Inject constructor() : ViewModel(){
      */
     fun loadStudents(groupId: Int){
         viewModelScope.launch {
-            val group = groupsRepository.getGroup(groupId)
-            if (group.students.isNotEmpty()){
-                Log.e(Constants.LOG_TAG, "vm load students with count: ${group.students.count()}")
-                resultMutableStudents.value = group.students
-            } else{
-                Log.e(Constants.LOG_TAG, "students list is empty")
+            if (resultMutableStudents.value.isNullOrEmpty()) {
+                val group = groupsRepository.getGroup(groupId)
+                if (group.students.isNotEmpty()) {
+                    Log.e(
+                        Constants.LOG_TAG,
+                        "vm load students with count: ${group.students.count()}"
+                    )
+                    resultMutableStudents.value = group.students
+                } else {
+                    Log.e(Constants.LOG_TAG, "students list is empty")
+                }
             }
         }
     }
