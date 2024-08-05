@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.teacherhelper.view.Screen
+import com.example.teacherhelper.view.compose.CreatorNewGroupScreen
+import com.example.teacherhelper.view.compose.CreatorNewStudentScreen
 import com.example.teacherhelper.view.compose.GroupDetailScreen
 import com.example.teacherhelper.view.compose.MainScreen
 import dagger.hilt.android.HiltAndroidApp
@@ -27,9 +29,14 @@ class TeacherHelperApp : Application() {
         NavHost(navController = navController, startDestination = Screen.Main.route) {
             composable(route = Screen.Main.route){
                 MainScreen(
-                    onClick = { group ->
+                    onGroupClick = { group ->
                         navController.navigate(
                             Screen.GroupDetail.createRoute(groupId = group.id)
+                        )
+                    },
+                    onAddGroupClick = {
+                        navController.navigate(
+                            Screen.CreateGroup.route
                         )
                     }
                 )
@@ -38,9 +45,38 @@ class TeacherHelperApp : Application() {
                 route = Screen.GroupDetail.route){ backStackEntry ->
                 val id = backStackEntry.arguments?.getString("groupId")?.toInt()
                     ?: 0
-                GroupDetailScreen(groupId = id)
+                GroupDetailScreen(
+                    onMainClick = onClickMain(navController),
+                    onAddStudentClick = {
+                        navController.navigate(
+                            Screen.CreateStudent.createRoute(groupId = id)
+                        )
+                    },
+                    groupId = id)
+            }
+            composable(
+                route = Screen.CreateStudent.route){ backStackEntry ->
+                val id = backStackEntry.arguments?.getString("groupId")?.toInt()
+                    ?: 0
+                CreatorNewStudentScreen(
+                    onBackClick = onClickMain(navController),
+                    groupId = id)
+            }
+            composable(
+                route = Screen.CreateGroup.route){
+                    CreatorNewGroupScreen(
+                        onBackClick = onClickMain(navController)
+                    )
             }
         }
     }
+
+    /**
+     * Клик на основной экран
+     */
+    private fun onClickMain(navController: NavHostController): () -> Unit {
+        return { navController.navigate(Screen.Main.route) }
+    }
 }
+
 
