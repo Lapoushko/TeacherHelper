@@ -26,4 +26,14 @@ interface GroupsRepository {
      * @return список групп
      */
     suspend fun getGroups(): List<Group>
+
+    /**
+     * Добавить студента в группу
+     */
+    suspend fun addStudent(group: Group, student: Student)
+
+    /**
+     * Добавить новую группу
+     */
+    suspend fun addGroup(group: Group)
 }

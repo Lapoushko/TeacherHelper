@@ -28,4 +28,12 @@ class GroupsRepositoryImpl @Inject constructor(): GroupsRepository {
         return groupService.getGroups()
     }
 
+    override suspend fun addStudent(group: Group, student: Student) {
+        groupService.addStudent(group, student)
+    }
+
+    override suspend fun addGroup(group: Group) {
+        groupService.addGroup(group)
+    }
+
 }
