@@ -6,7 +6,7 @@ package com.example.teacherhelper.repository.data
 class ExampleData {
     private val student1: Student = Student(0, "Вадя","Двоечник")
     private val student2: Student = Student(1, "Настя","Отличница")
-    val groups: List<Group> = listOf(
+    var groups: MutableList<Group> = mutableListOf(
         Group(0,
         "ЕГЭ Информатика",
         listOf(student1),
@@ -17,6 +17,14 @@ class ExampleData {
             listOf(student1,student2),
             "ОГЭшники")),
         (Group(2,
+            "ОГЭ Информатика",
+            listOf(student1,student2, student2),
+            "ОГЭшники")),
+        (Group(3,
+            "ОГЭ Информатика",
+            listOf(student1,student2, student2),
+            "ОГЭшники")),
+        (Group(4,
             "ОГЭ Информатика",
             listOf(student1,student2, student2),
             "ОГЭшники"))
