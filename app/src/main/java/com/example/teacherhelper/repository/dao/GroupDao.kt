@@ -25,4 +25,22 @@ class GroupDao @Inject constructor(){
     fun getGroups(): List<Group>{
         return data.groups
     }
+
+    /**
+     * Сохранить группу
+     */
+    fun saveGroup(group: Group) {
+        if (data.groups.isNotEmpty()) {
+            data.groups[group.id] = group
+        } else {
+            data.groups.add(group)
+        }
+    }
+
+    /**
+     * Добавить новую группу
+     */
+    fun addGroup(group: Group){
+        data.groups.add(group)
+    }
 }
