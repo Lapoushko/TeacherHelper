@@ -3,12 +3,15 @@
 package com.example.teacherhelper.view.compose
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -24,44 +27,63 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.teacherhelper.presenter.MainActivityViewModel
 import com.example.teacherhelper.repository.data.Group
+import com.example.teacherhelper.util.Constants
 
 /**
  * Контент основной активности
  */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen(mainActivityViewModel: MainActivityViewModel = hiltViewModel(),
-               onGroupClick : (Group) -> Unit,
-               onAddGroupClick: () -> Unit){
+fun MainScreen(
+        mainActivityViewModel: MainActivityViewModel = hiltViewModel(),
+        onGroupClick: (Group) -> Unit,
+        onAddGroupClick: () -> Unit,
+) {
     mainActivityViewModel.loadGroups()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            TopAppBar(title = {
-                Text(text = "Список групп")
-            },
-                scrollBehavior = scrollBehavior
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            topBar = {
+                TopAppBar(
+                        title = {
+                            Text(text = "Список групп")
+                        },
+                        scrollBehavior = scrollBehavior
                 )
-        },
-        floatingActionButtonPosition = FabPosition.Center,
-        floatingActionButton = {
-            FloatingActionButton(onClick = onAddGroupClick) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
+            },
+            floatingActionButtonPosition = FabPosition.Center,
+            floatingActionButton = {
+                FloatingActionButton(onClick = onAddGroupClick) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
+                }
             }
-        }
-    ){ padding ->
-        LazyColumn(modifier = Modifier
-            .fillMaxSize()
-            .padding(padding)
-
+    ) { padding ->
+        LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
         ) {
             items(
-                items = mainActivityViewModel.resultLiveGroups.value ?: emptyList(),
-                itemContent = {
-                    GroupListItem(group = it,
-                        onClick = onGroupClick)
-                }
+                    items = mainActivityViewModel.resultLiveGroups.value ?: emptyList(),
+                    itemContent = {
+                        GroupListItem(group = it,
+                                onClick = onGroupClick,
+                                dropDownItems = listOf(
+                                        DropDownItem(
+                                                text = "Редактировать",
+                                                icon = Icons.Default.Edit
+                                        ),
+                                        DropDownItem(
+                                                text = "Удалить",
+                                                icon = Icons.Default.Delete
+                                        )
+                                ),
+
+                                onItemClick = {
+                                    Log.e(Constants.LOG_TAG, "2")
+                                })
+//                    Spacer(modifier = Modifier.height(6.dp))
+                    }
             )
         }
     }
@@ -70,27 +92,28 @@ fun MainScreen(mainActivityViewModel: MainActivityViewModel = hiltViewModel(),
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MainScreenPreview(mainActivityViewModel: MainActivityViewModel = hiltViewModel()){
+fun MainScreenPreview(mainActivityViewModel: MainActivityViewModel = hiltViewModel()) {
     mainActivityViewModel.loadGroups()
     Scaffold(
-        floatingActionButtonPosition = FabPosition.Center,
-        floatingActionButton = { FloatingActionButton(onClick = {
-        }) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
-        }
-        }
-    ){ padding ->
-        LazyColumn(modifier = Modifier
-            .fillMaxSize()
-            .padding(padding)
-
+            floatingActionButtonPosition = FabPosition.Center,
+            floatingActionButton = {
+                FloatingActionButton(onClick = {
+                }) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
+                }
+            }
+    ) { padding ->
+        LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
         ) {
             items(
-                items = mainActivityViewModel.resultLiveGroups.value ?: emptyList(),
-                itemContent = {
-                    GroupListItem(group = it,
-                        onClick = {})
-                }
+                    items = mainActivityViewModel.resultLiveGroups.value ?: emptyList(),
+                    itemContent = {
+//                    GroupListItem(group = it,
+//                        onClick = {})
+                    }
             )
         }
     }
