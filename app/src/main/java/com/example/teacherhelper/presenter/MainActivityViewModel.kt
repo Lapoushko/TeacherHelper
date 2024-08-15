@@ -16,25 +16,26 @@ import javax.inject.Inject
  * ViewModel для MainScreen
  */
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(): ViewModel() {
+class MainActivityViewModel @Inject constructor() : ViewModel() {
 
-    @Inject lateinit var groupsRepository: GroupsRepositoryImpl
+    @Inject
+    lateinit var groupsRepository: GroupsRepositoryImpl
     private val resultMutableGroups = MutableLiveData<List<Group>>()
     val resultLiveGroups: LiveData<List<Group>> = resultMutableGroups
 
     init {
-        Log.e(Constants.LOG_TAG,"vm created")
+        Log.e(Constants.LOG_TAG, "vm created")
     }
 
     override fun onCleared() {
-        Log.e(Constants.LOG_TAG,"vm cleared")
+        Log.e(Constants.LOG_TAG, "vm cleared")
         super.onCleared()
     }
 
     /**
      * Загрузка групп
      */
-    fun loadGroups(){
+    fun loadGroups() {
         viewModelScope.launch {
             if (resultMutableGroups.value.isNullOrEmpty()) {
                 val groups = groupsRepository.getGroups()

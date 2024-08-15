@@ -5,19 +5,18 @@ package com.example.teacherhelper.view
  */
 sealed class Screen(
     val route: String,
-){
+) {
     data object Main : Screen("main")
 
     data object GroupDetail : Screen(
-        route = "groupDetail/{groupId}")
-    {
+        route = "groupDetail/{groupId}"
+    ) {
         fun createRoute(groupId: Int) = "groupDetail/$groupId"
     }
 
     data object CreateStudent : Screen(
         route = "createStudent/{groupId}"
-    )
-    {
+    ) {
         fun createRoute(groupId: Int) = "createStudent/$groupId"
     }
 
@@ -25,6 +24,9 @@ sealed class Screen(
         route = "createGroup"
     )
 
-
-    data object StudentDetail : Screen("student detail")
+    data object EditGroup : Screen(
+        route = "editGroup/{groupId}"
+    ) {
+        fun createRoute(groupId: Int) = "editGroup/$groupId"
+    }
 }

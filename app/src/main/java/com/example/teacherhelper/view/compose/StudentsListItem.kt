@@ -21,15 +21,17 @@ import com.example.teacherhelper.repository.data.Student
  * Item для отображения группы recycler view
  */
 @Composable
-fun StudentsListItem(student: Student, onClick : () -> Unit){
-    Button(onClick = {
+fun StudentsListItem(student: Student, onClick: () -> Unit) {
+    Button(
+        onClick = {
 //        onClick()
-    },
+        },
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 8.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
-        colors = ButtonDefaults.buttonColors(Color.Gray)) {
+        colors = ButtonDefaults.buttonColors(Color.Gray)
+    ) {
         Row {
             Column(
                 modifier = Modifier

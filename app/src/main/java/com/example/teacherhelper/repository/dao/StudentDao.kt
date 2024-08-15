@@ -14,7 +14,7 @@ class StudentDao @Inject constructor() {
      * Получить студента
      * @param idStudent айди студента
      */
-    fun getStudent(idStudent: Int): Student{
+    fun getStudent(idStudent: Int): Student {
         //TODO Получать информацию о студенте независимо от номера группы
         return data.groups[0].students[idStudent]
     }

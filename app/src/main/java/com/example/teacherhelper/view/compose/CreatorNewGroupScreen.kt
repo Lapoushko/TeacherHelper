@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -34,8 +34,10 @@ import com.example.teacherhelper.presenter.CreatorNewGroupViewModel
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreatorNewGroupScreen(vm: CreatorNewGroupViewModel = hiltViewModel(),
-                          onBackClick: () -> Unit){
+fun CreatorNewGroupScreen(
+    vm: CreatorNewGroupViewModel = hiltViewModel(),
+    onBackClick: () -> Unit
+) {
     var name by remember { mutableStateOf("") }
     var description by remember {
         mutableStateOf("")
@@ -48,24 +50,29 @@ fun CreatorNewGroupScreen(vm: CreatorNewGroupViewModel = hiltViewModel(),
             },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back Icon")
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back Icon"
+                        )
                     }
                 })
         },
         floatingActionButtonPosition = FabPosition.Center,
-        floatingActionButton = { FloatingActionButton(onClick = {
-            vm.addGroup(name = name, description = description)
-            onBackClick()
-        }) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
-        }
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                vm.addGroup(name = name, description = description)
+                onBackClick()
+            }) {
+                Icon(imageVector = Icons.Default.Done, contentDescription = "Save icon")
+            }
         }
     ) { padding ->
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(padding),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
@@ -85,7 +92,7 @@ fun CreatorNewGroupScreen(vm: CreatorNewGroupViewModel = hiltViewModel(),
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun CreatorNewGroupScreenPreview (){
+fun CreatorNewGroupScreenPreview() {
     var name by remember { mutableStateOf("") }
     var description by remember {
         mutableStateOf("")
@@ -97,22 +104,27 @@ fun CreatorNewGroupScreenPreview (){
                 Text(text = "Добавление группы")
             },
                 navigationIcon = {
-                    IconButton(onClick = {  }) {
-                        Icon(imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back Icon")
+                    IconButton(onClick = { }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back Icon"
+                        )
                     }
                 })
         },
         floatingActionButtonPosition = FabPosition.Center,
-        floatingActionButton = { FloatingActionButton(onClick = {  }) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
-        }
+        floatingActionButton = {
+            FloatingActionButton(onClick = { }) {
+                Icon(imageVector = Icons.Default.Done, contentDescription = "Save icon")
+            }
         }
     ) { padding ->
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(padding),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },

@@ -11,10 +11,12 @@ import javax.inject.Singleton
  * Репозиторий для работы с группами студентов
  */
 @Singleton
-class GroupsRepositoryImpl @Inject constructor(): GroupsRepository {
-    @Inject lateinit var groupService: GroupServiceImpl
+class GroupsRepositoryImpl @Inject constructor() : GroupsRepository {
+    @Inject
+    lateinit var groupService: GroupServiceImpl
 
-    @Inject lateinit var studentService: StudentServiceImpl
+    @Inject
+    lateinit var studentService: StudentServiceImpl
 
     override suspend fun getStudent(id: Int): Student {
         return studentService.getStudent(id)
@@ -36,4 +38,7 @@ class GroupsRepositoryImpl @Inject constructor(): GroupsRepository {
         groupService.addGroup(group)
     }
 
+    override suspend fun editGroup(group: Group) {
+        groupService.editGroup(group)
+    }
 }

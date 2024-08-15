@@ -26,18 +26,21 @@ import com.example.teacherhelper.presenter.GroupDetailViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun GroupDetailScreen(groupDetailViewModel: GroupDetailViewModel = hiltViewModel(),
-                      onMainClick: () -> Unit,
-                      onAddStudentClick: (Int) -> Unit,
-                      groupId: Int){
+fun GroupDetailScreen(
+    groupDetailViewModel: GroupDetailViewModel = hiltViewModel(),
+    onMainClick: () -> Unit,
+    onAddStudentClick: (Int) -> Unit,
+    groupId: Int
+) {
     groupDetailViewModel.loadStudents(groupId = groupId)
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopAppBar(title = {
-                Text(text = "Список студентов")
-            },
+            TopAppBar(
+                title = {
+                    Text(text = "Список студентов")
+                },
                 navigationIcon = {
                     IconButton(onClick = onMainClick) {
                         Icon(
@@ -46,25 +49,28 @@ fun GroupDetailScreen(groupDetailViewModel: GroupDetailViewModel = hiltViewModel
                         )
                     }
                 },
-                scrollBehavior = scrollBehavior)
+                scrollBehavior = scrollBehavior
+            )
 //            ,colors = TopAppBarDefaults.topAppBarColors(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)))
         },
         floatingActionButtonPosition = FabPosition.Center,
-        floatingActionButton = { FloatingActionButton(onClick = {
-            onAddStudentClick(groupId)
-        }) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                onAddStudentClick(groupId)
+            }) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
+            }
         }
-        }
-    ){ padding ->
-        LazyColumn(modifier = Modifier
-            .fillMaxSize()
-            .padding(padding)
+    ) { padding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
         ) {
             items(
                 items = groupDetailViewModel.resultLiveStudents.value ?: emptyList(),
                 itemContent = {
-                    StudentsListItem(student = it){
+                    StudentsListItem(student = it) {
                     }
                 }
             )

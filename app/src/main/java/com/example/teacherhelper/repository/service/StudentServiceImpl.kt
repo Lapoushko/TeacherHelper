@@ -7,7 +7,7 @@ import javax.inject.Inject
 /**
  * Сервис, отвечающий за работу со студентом
  */
-class StudentServiceImpl @Inject constructor(dao: StudentDao) : StudentService{
+class StudentServiceImpl @Inject constructor(dao: StudentDao) : StudentService {
     private val studentDao = dao
 
     override fun getStudent(id: Int): Student {

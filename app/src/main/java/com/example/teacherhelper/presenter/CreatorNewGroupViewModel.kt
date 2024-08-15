@@ -16,27 +16,30 @@ import javax.inject.Inject
 @HiltViewModel
 class CreatorNewGroupViewModel @Inject constructor() : ViewModel() {
 
-    @Inject lateinit var groupsRepository: GroupsRepositoryImpl
+    @Inject
+    lateinit var groupsRepository: GroupsRepositoryImpl
 
     init {
-        Log.e(Constants.LOG_TAG,"init creator group vm")
+        Log.e(Constants.LOG_TAG, "init creator group vm")
     }
 
     override fun onCleared() {
-        Log.e(Constants.LOG_TAG,"creator student vm cleared")
+        Log.e(Constants.LOG_TAG, "creator group vm cleared")
         super.onCleared()
     }
 
     /**
      * Создать группу
      */
-    fun addGroup(name: String, description: String){
+    fun addGroup(name: String, description: String) {
         viewModelScope.launch {
-            if (name.isNotEmpty() && description.isNotEmpty()){
-                val group = Group(id = groupsRepository.getGroups().size,
+            if (name.isNotEmpty() && description.isNotEmpty()) {
+                val group = Group(
+                    id = groupsRepository.getGroups().size,
                     name = name,
                     emptyList(),
-                    description = description)
+                    description = description
+                )
                 groupsRepository.groupService.addGroup(group)
             }
         }

@@ -8,21 +8,21 @@ import javax.inject.Inject
 /**
  * Дао для работы с группой
  */
-class GroupDao @Inject constructor(){
+class GroupDao @Inject constructor() {
     private var data: ExampleData = ExampleData()
 
     /**
      * Получить группу
      * @param id номер группы
      */
-    fun getGroup(id: Int): Group{
+    fun getGroup(id: Int): Group {
         return data.groups[id]
     }
 
     /**
      * Получить группы
      */
-    fun getGroups(): List<Group>{
+    fun getGroups(): List<Group> {
         return data.groups
     }
 
@@ -40,7 +40,7 @@ class GroupDao @Inject constructor(){
     /**
      * Добавить новую группу
      */
-    fun addGroup(group: Group){
+    fun addGroup(group: Group) {
         data.groups.add(group)
     }
 }

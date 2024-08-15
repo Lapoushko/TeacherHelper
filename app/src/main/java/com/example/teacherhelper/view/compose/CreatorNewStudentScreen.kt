@@ -9,6 +9,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -40,9 +41,11 @@ import com.example.teacherhelper.util.Constants
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CreatorNewStudentScreen(vm: CreatorNewStudentViewModel = hiltViewModel(),
-                            onBackClick: () -> Unit,
-                            groupId: Int) {
+fun CreatorNewStudentScreen(
+    vm: CreatorNewStudentViewModel = hiltViewModel(),
+    onBackClick: () -> Unit,
+    groupId: Int
+) {
     var name by remember { mutableStateOf("") }
     var description by remember {
         mutableStateOf("")
@@ -57,25 +60,31 @@ fun CreatorNewStudentScreen(vm: CreatorNewStudentViewModel = hiltViewModel(),
                     IconButton(onClick = {
                         onBackClick()
                     }) {
-                        Icon(imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back Icon")
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back Icon"
+                        )
                     }
                 })
         },
         floatingActionButtonPosition = FabPosition.Center,
-        floatingActionButton = { FloatingActionButton(onClick = {
-            val student = Student(groupId, name, description)
-            vm.addStudent(student.id, student.name, student.description)
-            Log.e(Constants.LOG_TAG, student.name + " " + student.description)
-            onBackClick()
-        }) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
-        }}
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                val student = Student(groupId, name, description)
+                vm.addStudent(student.id, student.name, student.description)
+                Log.e(Constants.LOG_TAG, student.name + " " + student.description)
+                onBackClick()
+            }) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
+            }
+        }
     ) { padding ->
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(padding),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
@@ -96,7 +105,7 @@ fun CreatorNewStudentScreen(vm: CreatorNewStudentViewModel = hiltViewModel(),
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun AddStudentPreview(){
+fun AddStudentPreview() {
     var name by remember { mutableStateOf("") }
     var description by remember {
         mutableStateOf("")
@@ -108,21 +117,27 @@ fun AddStudentPreview(){
                 Text(text = "Добавление студента")
             },
                 navigationIcon = {
-                    IconButton(onClick = {  }) {
-                        Icon(imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back Icon")
+                    IconButton(onClick = { }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back Icon"
+                        )
                     }
                 })
         },
         floatingActionButtonPosition = FabPosition.Center,
-        floatingActionButton = { FloatingActionButton(onClick = {  }) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
-        }}
+        floatingActionButton = {
+            FloatingActionButton(onClick = { }) {
+                Icon(imageVector = Icons.Default.Done, contentDescription = "Save icon")
+            }
+        }
     ) { padding ->
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(padding),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },

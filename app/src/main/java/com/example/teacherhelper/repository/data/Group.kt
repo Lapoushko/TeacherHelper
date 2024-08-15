@@ -14,4 +14,5 @@ data class Group @Inject constructor(
     val id: Int,
     val name: String,
     val students: List<Student>,
-    val description: String)
+    val description: String
+)

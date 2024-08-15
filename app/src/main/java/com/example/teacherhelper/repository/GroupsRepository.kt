@@ -36,4 +36,9 @@ interface GroupsRepository {
      * Добавить новую группу
      */
     suspend fun addGroup(group: Group)
+
+    /**
+     * Редактировать группу
+     */
+    suspend fun editGroup(group: Group)
 }

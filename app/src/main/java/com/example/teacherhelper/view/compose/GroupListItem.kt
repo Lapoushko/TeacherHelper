@@ -43,10 +43,10 @@ import com.example.teacherhelper.repository.data.Group
  */
 @Composable
 fun GroupListItem(
-        group: Group,
-        dropDownItems: List<DropDownItem>,
-        onClick: (Group) -> Unit,
-        onItemClick: (DropDownItem) -> Unit,
+    group: Group,
+    dropDownItems: List<DropDownItem>,
+    onClick: (Group) -> Unit,
+    onItemClick: (Group) -> Unit,
 ) {
     var isContextMenuVisible by rememberSaveable {
         mutableStateOf(false)
@@ -66,33 +66,33 @@ fun GroupListItem(
     }
 
     Card(
-            modifier = Modifier
-                .onSizeChanged {
-                    itemHeight = with(density) { it.height.toDp() }
-                },
+        modifier = Modifier
+            .onSizeChanged {
+                itemHeight = with(density) { it.height.toDp() }
+            },
     ) {
         Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .indication(interactionSource, LocalIndication.current)
-                    .pointerInput(true) {
-                        detectTapGestures(
-                                onLongPress = {
-                                    isContextMenuVisible = true
-                                    pressOffset = DpOffset(it.x.toDp(), it.y.toDp())
-                                },
-                                onTap = {
-                                    onClick(group)
-                                }
-                        )
-                    }
+            modifier = Modifier
+                .fillMaxWidth()
+                .indication(interactionSource, LocalIndication.current)
+                .pointerInput(true) {
+                    detectTapGestures(
+                        onLongPress = {
+                            isContextMenuVisible = true
+                            pressOffset = DpOffset(it.x.toDp(), it.y.toDp())
+                        },
+                        onTap = {
+                            onClick(group)
+                        }
+                    )
+                }
         ) {
             Row {
                 Column(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth()
-                            .align(Alignment.CenterVertically)
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth()
+                        .align(Alignment.CenterVertically)
                 ) {
                     Text(text = group.name, style = typography.titleMedium)
                     Text(text = group.description, style = typography.titleSmall)
@@ -100,54 +100,57 @@ fun GroupListItem(
             }
         }
         DropdownMenu(
-                expanded = isContextMenuVisible,
-                onDismissRequest = { isContextMenuVisible = false },
-                offset = pressOffset.copy(
-                        y = pressOffset.y - itemHeight
-                )
+            expanded = isContextMenuVisible,
+            onDismissRequest = { isContextMenuVisible = false },
+            offset = pressOffset.copy(
+                y = pressOffset.y - itemHeight
+            )
         ) {
             dropDownItems.forEach { item ->
                 DropdownMenuItem(text = { Text(item.text) },
-                        onClick = {
-                            onItemClick(item)
-                            isContextMenuVisible = false
-                        },
-                        leadingIcon = { Icon(imageVector = item.icon, contentDescription = null) })
+                    onClick = {
+                        onItemClick(group)
+                        isContextMenuVisible = false
+                    },
+                    leadingIcon = { Icon(imageVector = item.icon, contentDescription = null) })
             }
         }
     }
 }
 
+/**
+ * Item для Drop Down кнопок
+ */
 data class DropDownItem(
-        val text: String,
-        val icon: ImageVector,
+    val text: String,
+    val icon: ImageVector
 )
 
 @Preview
 @Composable
 fun button() {
     Card(
-            modifier = Modifier
-                .shadow(
-                        elevation = 5.dp,
-                        ambientColor = Color.Black,
-                        spotColor = Color.DarkGray,
-                        shape = RoundedCornerShape(20.dp)
-                )
+        modifier = Modifier
+            .shadow(
+                elevation = 5.dp,
+                ambientColor = Color.Black,
+                spotColor = Color.DarkGray,
+                shape = RoundedCornerShape(20.dp)
+            )
     ) {
         Button(
-                onClick = { },
-                modifier = Modifier
-                    .fillMaxWidth(),
-                shape = RoundedCornerShape(corner = CornerSize(0.dp)),
-                colors = ButtonDefaults.buttonColors(Color.Gray)
+            onClick = { },
+            modifier = Modifier
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(corner = CornerSize(0.dp)),
+            colors = ButtonDefaults.buttonColors(Color.Gray)
         ) {
             Row {
                 Column(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth()
-                            .align(Alignment.CenterVertically)
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth()
+                        .align(Alignment.CenterVertically)
                 ) {
                     Text(text = "123", style = typography.titleMedium)
                     Text(text = "456", style = typography.titleSmall)

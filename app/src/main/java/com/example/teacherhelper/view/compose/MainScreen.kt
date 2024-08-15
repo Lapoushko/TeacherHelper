@@ -3,7 +3,6 @@
 package com.example.teacherhelper.view.compose
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,7 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.teacherhelper.presenter.MainActivityViewModel
 import com.example.teacherhelper.repository.data.Group
-import com.example.teacherhelper.util.Constants
 
 /**
  * Контент основной активности
@@ -35,55 +33,56 @@ import com.example.teacherhelper.util.Constants
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
-        mainActivityViewModel: MainActivityViewModel = hiltViewModel(),
-        onGroupClick: (Group) -> Unit,
-        onAddGroupClick: () -> Unit,
+    mainActivityViewModel: MainActivityViewModel = hiltViewModel(),
+    onGroupClick: (Group) -> Unit,
+    onAddGroupClick: () -> Unit,
+    onEditGroupClick: (Group) -> Unit
 ) {
     mainActivityViewModel.loadGroups()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            topBar = {
-                TopAppBar(
-                        title = {
-                            Text(text = "Список групп")
-                        },
-                        scrollBehavior = scrollBehavior
-                )
-            },
-            floatingActionButtonPosition = FabPosition.Center,
-            floatingActionButton = {
-                FloatingActionButton(onClick = onAddGroupClick) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
-                }
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "Список групп")
+                },
+                scrollBehavior = scrollBehavior
+            )
+        },
+        floatingActionButtonPosition = FabPosition.Center,
+        floatingActionButton = {
+            FloatingActionButton(onClick = onAddGroupClick) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
             }
+        }
     ) { padding ->
         LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
         ) {
             items(
-                    items = mainActivityViewModel.resultLiveGroups.value ?: emptyList(),
-                    itemContent = {
-                        GroupListItem(group = it,
-                                onClick = onGroupClick,
-                                dropDownItems = listOf(
-                                        DropDownItem(
-                                                text = "Редактировать",
-                                                icon = Icons.Default.Edit
-                                        ),
-                                        DropDownItem(
-                                                text = "Удалить",
-                                                icon = Icons.Default.Delete
-                                        )
-                                ),
+                items = mainActivityViewModel.resultLiveGroups.value ?: emptyList(),
+                itemContent = {
+                    GroupListItem(
+                        group = it,
+                        onClick = onGroupClick,
+                        dropDownItems = listOf(
+                            DropDownItem(
+                                text = "Редактировать",
+                                icon = Icons.Default.Edit
+                            ),
+                            DropDownItem(
+                                text = "Удалить",
+                                icon = Icons.Default.Delete
+                            )
+                        ),
 
-                                onItemClick = {
-                                    Log.e(Constants.LOG_TAG, "2")
-                                })
+                        onItemClick = onEditGroupClick
+                    )
 //                    Spacer(modifier = Modifier.height(6.dp))
-                    }
+                }
             )
         }
     }
@@ -95,25 +94,25 @@ fun MainScreen(
 fun MainScreenPreview(mainActivityViewModel: MainActivityViewModel = hiltViewModel()) {
     mainActivityViewModel.loadGroups()
     Scaffold(
-            floatingActionButtonPosition = FabPosition.Center,
-            floatingActionButton = {
-                FloatingActionButton(onClick = {
-                }) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
-                }
+        floatingActionButtonPosition = FabPosition.Center,
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+            }) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
             }
+        }
     ) { padding ->
         LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
         ) {
             items(
-                    items = mainActivityViewModel.resultLiveGroups.value ?: emptyList(),
-                    itemContent = {
+                items = mainActivityViewModel.resultLiveGroups.value ?: emptyList(),
+                itemContent = {
 //                    GroupListItem(group = it,
 //                        onClick = {})
-                    }
+                }
             )
         }
     }

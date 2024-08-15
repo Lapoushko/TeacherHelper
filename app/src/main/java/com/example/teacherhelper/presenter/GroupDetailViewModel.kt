@@ -16,25 +16,26 @@ import javax.inject.Inject
  * VM для GroupDetailScreen
  */
 @HiltViewModel
-class GroupDetailViewModel @Inject constructor() : ViewModel(){
-    @Inject lateinit var groupsRepository: GroupsRepositoryImpl
+class GroupDetailViewModel @Inject constructor() : ViewModel() {
+    @Inject
+    lateinit var groupsRepository: GroupsRepositoryImpl
 
     private val resultMutableStudents = MutableLiveData<List<Student>>()
     val resultLiveStudents: LiveData<List<Student>> = resultMutableStudents
 
     init {
-        Log.e(Constants.LOG_TAG,"init groupDetailVM")
+        Log.e(Constants.LOG_TAG, "init groupDetailVM")
     }
 
     override fun onCleared() {
-        Log.e(Constants.LOG_TAG,"groupDetailVM cleared")
+        Log.e(Constants.LOG_TAG, "groupDetailVM cleared")
         super.onCleared()
     }
 
     /**
      * Загрузка группы студентов
      */
-    fun loadStudents(groupId: Int){
+    fun loadStudents(groupId: Int) {
         viewModelScope.launch {
             if (resultMutableStudents.value.isNullOrEmpty()) {
                 val group = groupsRepository.getGroup(groupId)
