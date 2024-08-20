@@ -79,7 +79,7 @@ dependencies {
     implementation(libs.room.ktx)
     kapt(libs.dagger.compiler)
     kapt(libs.hilt.compiler)
-    kapt("androidx.room:room-compiler:2.6.1")
+    kapt(libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
