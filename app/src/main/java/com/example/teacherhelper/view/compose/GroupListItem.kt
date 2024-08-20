@@ -45,8 +45,7 @@ import com.example.teacherhelper.repository.data.Group
 fun GroupListItem(
     group: Group,
     dropDownItems: List<DropDownItem>,
-    onClick: (Group) -> Unit,
-    onItemClick: (Group) -> Unit,
+    onClick: (Group) -> Unit
 ) {
     var isContextMenuVisible by rememberSaveable {
         mutableStateOf(false)
@@ -109,7 +108,7 @@ fun GroupListItem(
             dropDownItems.forEach { item ->
                 DropdownMenuItem(text = { Text(item.text) },
                     onClick = {
-                        onItemClick(group)
+                        item.onItemClick(group)
                         isContextMenuVisible = false
                     },
                     leadingIcon = { Icon(imageVector = item.icon, contentDescription = null) })
@@ -123,7 +122,8 @@ fun GroupListItem(
  */
 data class DropDownItem(
     val text: String,
-    val icon: ImageVector
+    val icon: ImageVector,
+    val onItemClick: (Group) -> Unit
 )
 
 @Preview

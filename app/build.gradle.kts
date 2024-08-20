@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("dagger.hilt.android.plugin")
+    id("kotlin-kapt")
     kotlin("kapt")
 }
 
@@ -19,6 +20,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+
+        kapt {
+            arguments {arg("room.schemaLocation", "$projectDir/schemas")}
         }
     }
 
@@ -70,8 +75,11 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     implementation(libs.dagger)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
     kapt(libs.dagger.compiler)
     kapt(libs.hilt.compiler)
+    kapt("androidx.room:room-compiler:2.6.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

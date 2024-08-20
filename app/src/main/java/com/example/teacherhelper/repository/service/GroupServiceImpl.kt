@@ -37,4 +37,8 @@ class GroupServiceImpl @Inject constructor(dao: GroupDao) : GroupService {
     override fun editGroup(group: Group) {
         groupDao.saveGroup(group)
     }
+
+    override fun deleteGroup(group: Group) {
+        groupDao.deleteGroup(group)
+    }
 }

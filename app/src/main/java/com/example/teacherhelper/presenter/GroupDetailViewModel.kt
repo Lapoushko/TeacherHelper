@@ -39,7 +39,7 @@ class GroupDetailViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             if (resultMutableStudents.value.isNullOrEmpty()) {
                 val group = groupsRepository.getGroup(groupId)
-                if (group.students.isNotEmpty()) {
+                if (group.students!!.isNotEmpty()) {
                     Log.e(
                         Constants.LOG_TAG,
                         "vm load students with count: ${group.students.count()}"

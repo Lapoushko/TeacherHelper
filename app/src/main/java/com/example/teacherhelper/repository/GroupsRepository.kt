@@ -8,13 +8,6 @@ import com.example.teacherhelper.repository.data.Student
  */
 interface GroupsRepository {
     /**
-     * получить студента
-     * @param id айди студента
-     * @return студент
-     */
-    suspend fun getStudent(id: Int): Student
-
-    /**
      * получить группу
      * @param id айди группы
      * @return группа
@@ -41,4 +34,9 @@ interface GroupsRepository {
      * Редактировать группу
      */
     suspend fun editGroup(group: Group)
+
+    /**
+     * Удалить группу
+     */
+    suspend fun deleteGroup(group: Group)
 }

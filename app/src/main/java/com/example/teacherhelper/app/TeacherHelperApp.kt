@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.teacherhelper.repository.data.GroupDatabase
 import com.example.teacherhelper.view.Screen
 import com.example.teacherhelper.view.compose.CreatorNewGroupScreen
 import com.example.teacherhelper.view.compose.CreatorNewStudentScreen
@@ -19,6 +20,7 @@ import dagger.hilt.android.HiltAndroidApp
  */
 @HiltAndroidApp
 class TeacherHelperApp : Application() {
+    val database by lazy { GroupDatabase.createDatabase(this) }
 
     @Composable
     fun TeacherHelperSet() {

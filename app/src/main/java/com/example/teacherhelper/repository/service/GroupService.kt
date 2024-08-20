@@ -36,4 +36,9 @@ interface GroupService {
      * Редактировать группу
      */
     fun editGroup(group: Group)
+
+    /**
+     * Удалить группу
+     */
+    fun deleteGroup(group: Group)
 }
