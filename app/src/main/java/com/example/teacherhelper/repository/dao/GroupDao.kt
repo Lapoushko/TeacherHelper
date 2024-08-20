@@ -44,7 +44,7 @@ class GroupDao @Inject constructor() {
      */
     fun saveGroup(group: Group) {
         if (data.groups.isNotEmpty()) {
-            data.groups[group.id!!] = group
+            data.groups[group.id] = group
         } else {
             data.groups.add(group)
         }
