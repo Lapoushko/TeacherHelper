@@ -37,7 +37,6 @@ import com.example.teacherhelper.util.Constants
 /**
  * Скрин создания нового студента
  */
-
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -94,7 +93,7 @@ fun CreatorNewStudentScreen(
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
-                placeholder = { Text("Описание ученика") },
+                placeholder = { Text("Описание студента") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
             )
         }
@@ -148,7 +147,7 @@ fun AddStudentPreview() {
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
-                placeholder = { Text("Описание ученика") },
+                placeholder = { Text("Описание студента") },
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
             )
