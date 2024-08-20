@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,16 +31,20 @@ import com.example.teacherhelper.repository.data.Group
 /**
  * Контент основной активности
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
-    mainActivityViewModel: MainActivityViewModel = hiltViewModel(),
+    vm: MainActivityViewModel = hiltViewModel(),
     onGroupClick: (Group) -> Unit,
     onAddGroupClick: () -> Unit,
     onEditGroupClick: (Group) -> Unit
 ) {
-    mainActivityViewModel.loadGroups()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val groups = vm.resultLiveGroups.collectAsState(initial = emptyList())
+
+    vm.loadGroups()
+
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -63,23 +68,25 @@ fun MainScreen(
                 .padding(padding)
         ) {
             items(
-                items = mainActivityViewModel.resultLiveGroups.value ?: emptyList(),
-                itemContent = {
+                items = groups.value,
+                itemContent = { group ->
                     GroupListItem(
-                        group = it,
+                        group = group,
                         onClick = onGroupClick,
                         dropDownItems = listOf(
                             DropDownItem(
                                 text = "Редактировать",
-                                icon = Icons.Default.Edit
+                                icon = Icons.Default.Edit,
+                                onItemClick = onEditGroupClick
                             ),
                             DropDownItem(
                                 text = "Удалить",
-                                icon = Icons.Default.Delete
+                                icon = Icons.Default.Delete,
+                                onItemClick = {
+                                    vm.deleteGroup(group = group)
+                                }
                             )
-                        ),
-
-                        onItemClick = onEditGroupClick
+                        )
                     )
 //                    Spacer(modifier = Modifier.height(6.dp))
                 }
