@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,12 +28,14 @@ import com.example.teacherhelper.presenter.GroupDetailViewModel
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun GroupDetailScreen(
-    groupDetailViewModel: GroupDetailViewModel = hiltViewModel(),
+    vm: GroupDetailViewModel = hiltViewModel(),
     onMainClick: () -> Unit,
     onAddStudentClick: (Int) -> Unit,
     groupId: Int
 ) {
-    groupDetailViewModel.loadStudents(groupId = groupId)
+    vm.loadStudents(groupId = groupId)
+    val students = vm.resultLiveStudents.collectAsState(initial = emptyList())
+    
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -68,7 +71,7 @@ fun GroupDetailScreen(
                 .padding(padding)
         ) {
             items(
-                items = groupDetailViewModel.resultLiveStudents.value ?: emptyList(),
+                items = students.value,
                 itemContent = {
                     StudentsListItem(student = it) {
                     }

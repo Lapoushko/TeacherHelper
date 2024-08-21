@@ -1,66 +1,40 @@
 package com.example.teacherhelper.repository.dao
 
-import com.example.teacherhelper.repository.data.ExampleData
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.example.teacherhelper.repository.data.Group
-import javax.inject.Inject
+import com.example.teacherhelper.repository.data.Student
+import com.example.teacherhelper.repository.data.StudentByGroup
 
 //TODO подключить базу данных для работы с данными
 
-//@Dao
-//interface Dao{
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insertGroupq(group: Group)
-//
-//    @Delete
-//    suspend fun deleteGroupq(group: Group)
-//
-//    @Query("SELECT * FROM groups")
-//    suspend fun getGroupsq() : StateFlow<List<Group>>
-//}
+@Dao
+interface Dao{
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertGroup(group: Group)
 
-/**
- * Дао для работы с группой
- */
-class GroupDao @Inject constructor() {
-    private var data: ExampleData = ExampleData()
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertStudent(group: Group, student: Student)
 
-    /**
-     * Получить группу
-     * @param id номер группы
-     */
-    fun getGroup(id: Int): Group {
-        return data.groups[id]
-    }
+    @Update
+    suspend fun updateGroup(group: Group)
 
-    /**
-     * Получить группы
-     */
-    fun getGroups(): List<Group> {
-        return data.groups
-    }
+    @Delete
+    suspend fun deleteGroup(group: Group)
 
-    /**
-     * Сохранить группу
-     */
-    fun saveGroup(group: Group) {
-        if (data.groups.isNotEmpty()) {
-            data.groups[group.id] = group
-        } else {
-            data.groups.add(group)
-        }
-    }
+    @Query("DELETE FROM groups")
+    suspend fun dropDatabase()
 
-    /**
-     * Добавить новую группу
-     */
-    fun addGroup(group: Group) {
-        data.groups.add(group)
-    }
+    @Transaction
+    @Query("SELECT * FROM groups")
+    suspend fun getGroups() : List<StudentByGroup>
 
-    /**
-     * Удалить группу
-     */
-    fun deleteGroup(group: Group){
-        data.groups.remove(group)
-    }
+    @Transaction
+    @Query("SELECT * FROM groups WHERE id = :id")
+    suspend fun getGroup(id: Int) : StudentByGroup
 }
