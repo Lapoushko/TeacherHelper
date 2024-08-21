@@ -43,8 +43,6 @@ fun MainScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val groups = vm.resultLiveGroups.collectAsState(initial = emptyList())
 
-    vm.loadGroups()
-
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -71,7 +69,7 @@ fun MainScreen(
                 items = groups.value,
                 itemContent = { group ->
                     GroupListItem(
-                        group = group,
+                        group = group.group,
                         onClick = onGroupClick,
                         dropDownItems = listOf(
                             DropDownItem(
@@ -83,7 +81,7 @@ fun MainScreen(
                                 text = "Удалить",
                                 icon = Icons.Default.Delete,
                                 onItemClick = {
-                                    vm.deleteGroup(group = group)
+                                    vm.deleteGroup(group = group.group)
                                 }
                             )
                         )
@@ -99,7 +97,6 @@ fun MainScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun MainScreenPreview(mainActivityViewModel: MainActivityViewModel = hiltViewModel()) {
-    mainActivityViewModel.loadGroups()
     Scaffold(
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
@@ -114,13 +111,7 @@ fun MainScreenPreview(mainActivityViewModel: MainActivityViewModel = hiltViewMod
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            items(
-                items = mainActivityViewModel.resultLiveGroups.value ?: emptyList(),
-                itemContent = {
-//                    GroupListItem(group = it,
-//                        onClick = {})
-                }
-            )
+
         }
     }
 }
