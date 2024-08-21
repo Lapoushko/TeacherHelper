@@ -14,11 +14,9 @@ import javax.inject.Inject
  * Создатель новой группы
  */
 @HiltViewModel
-class CreatorNewGroupViewModel @Inject constructor() : ViewModel() {
-
-    @Inject
-    lateinit var groupsRepository: GroupsRepositoryImpl
-
+class CreatorNewGroupViewModel @Inject constructor(
+    private val groupsRepository: GroupsRepositoryImpl
+) : ViewModel() {
     init {
         Log.e(Constants.LOG_TAG, "init creator group vm")
     }
@@ -33,14 +31,15 @@ class CreatorNewGroupViewModel @Inject constructor() : ViewModel() {
      */
     fun addGroup(name: String, description: String) {
         viewModelScope.launch {
+            val groups = groupsRepository.getGroups()
             if (name.isNotEmpty() && description.isNotEmpty()) {
                 val group = Group(
-                    id = groupsRepository.getGroups().size,
+                    id = 0,
                     name = name,
-                    emptyList(),
                     description = description
                 )
-                groupsRepository.groupService.addGroup(group)
+                groupsRepository.insertGroup(group)
+
             }
         }
     }

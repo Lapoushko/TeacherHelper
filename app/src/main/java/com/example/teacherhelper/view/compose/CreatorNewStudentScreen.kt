@@ -69,9 +69,12 @@ fun CreatorNewStudentScreen(
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                val student = Student(groupId, name, description)
-                vm.addStudent(student.id, student.name, student.description)
-                Log.e(Constants.LOG_TAG, student.name + " " + student.description)
+                val student = Student(studentId = 0,
+                    groupId = groupId,
+                    name = name,
+                    description = description)
+                Log.d(Constants.LOG_TAG, student.toString())
+                vm.addStudent(groupId, student.name, student.description)
                 onBackClick()
             }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")

@@ -1,14 +1,14 @@
 package com.example.teacherhelper.presenter
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.teacherhelper.repository.GroupsRepositoryImpl
 import com.example.teacherhelper.repository.data.Student
 import com.example.teacherhelper.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,12 +16,11 @@ import javax.inject.Inject
  * VM для GroupDetailScreen
  */
 @HiltViewModel
-class GroupDetailViewModel @Inject constructor() : ViewModel() {
-    @Inject
-    lateinit var groupsRepository: GroupsRepositoryImpl
-
-    private val resultMutableStudents = MutableLiveData<List<Student>>()
-    val resultLiveStudents: LiveData<List<Student>> = resultMutableStudents
+class GroupDetailViewModel @Inject constructor(
+    private val groupsRepository: GroupsRepositoryImpl
+) : ViewModel() {
+    private val resultMutableStudents = MutableStateFlow<List<Student>>(emptyList())
+    val resultLiveStudents: StateFlow<List<Student>> = resultMutableStudents
 
     init {
         Log.e(Constants.LOG_TAG, "init groupDetailVM")
@@ -37,8 +36,9 @@ class GroupDetailViewModel @Inject constructor() : ViewModel() {
      */
     fun loadStudents(groupId: Int) {
         viewModelScope.launch {
-            if (resultMutableStudents.value.isNullOrEmpty()) {
+            if (resultMutableStudents.value.isEmpty()) {
                 val group = groupsRepository.getGroup(groupId)
+                Log.d(Constants.LOG_TAG, groupId.toString())
                 if (group.students.isNotEmpty()) {
                     Log.e(
                         Constants.LOG_TAG,

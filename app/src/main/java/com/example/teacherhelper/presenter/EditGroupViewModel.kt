@@ -14,10 +14,9 @@ import javax.inject.Inject
  * VM для реадктирования группы
  */
 @HiltViewModel
-class EditGroupViewModel @Inject constructor() : ViewModel() {
-    @Inject
-    lateinit var groupsRepository: GroupsRepositoryImpl
-
+class EditGroupViewModel @Inject constructor(
+    private val groupsRepository: GroupsRepositoryImpl
+) : ViewModel() {
     init {
         Log.e(Constants.LOG_TAG, "init editor group vm")
     }
@@ -34,12 +33,11 @@ class EditGroupViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             if (name.isNotEmpty() && description.isNotEmpty()) {
                 val group = Group(
-                    id = groupsRepository.getGroup(groupId).id,
+                    id = groupId,
                     name = name,
-                    students = groupsRepository.getGroup(groupId).students,
                     description = description
                 )
-                groupsRepository.groupService.editGroup(group)
+                groupsRepository.updateGroup(group)
             }
         }
     }

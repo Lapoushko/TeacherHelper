@@ -14,9 +14,10 @@ import javax.inject.Inject
  * View Model для добавления нового студента в группу
  */
 @HiltViewModel
-class CreatorNewStudentViewModel @Inject constructor() : ViewModel() {
-    @Inject
-    lateinit var groupsRepository: GroupsRepositoryImpl
+class CreatorNewStudentViewModel @Inject constructor(
+    private val groupsRepository: GroupsRepositoryImpl
+) : ViewModel() {
+
 
     init {
         Log.e(Constants.LOG_TAG, "init creator student vm")
@@ -33,13 +34,15 @@ class CreatorNewStudentViewModel @Inject constructor() : ViewModel() {
      */
     fun addStudent(groupId: Int, name: String, description: String) {
         viewModelScope.launch {
+            val group = groupsRepository.getGroup(groupId)
             val student = Student(
-                groupsRepository.getGroup(groupId).students.size,
-                name, description
+                0,
+                name, description,
+                groupId
             )
             if (student.name.isNotEmpty() && student.description.isNotEmpty()) {
-                groupsRepository.groupService.addStudent(
-                    groupsRepository.getGroup(groupId),
+                groupsRepository.insertStudent(
+                    group.group,
                     student
                 )
             }
