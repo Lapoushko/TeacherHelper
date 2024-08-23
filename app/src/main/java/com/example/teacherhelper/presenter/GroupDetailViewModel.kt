@@ -14,6 +14,7 @@ import javax.inject.Inject
 
 /**
  * VM для GroupDetailScreen
+ * @param groupsRepository репозиторий для работы с данными
  */
 @HiltViewModel
 class GroupDetailViewModel @Inject constructor(
@@ -33,20 +34,23 @@ class GroupDetailViewModel @Inject constructor(
 
     /**
      * Загрузка группы студентов
+     * @param groupId айди группы студентов
      */
     fun loadStudents(groupId: Int) {
         viewModelScope.launch {
             if (resultMutableStudents.value.isEmpty()) {
                 val group = groupsRepository.getGroup(groupId)
                 Log.d(Constants.LOG_TAG, groupId.toString())
-                if (group.students.isNotEmpty()) {
-                    Log.e(
-                        Constants.LOG_TAG,
-                        "vm load students with count: ${group.students.count()}"
-                    )
-                    resultMutableStudents.value = group.students
-                } else {
-                    Log.e(Constants.LOG_TAG, "students list is empty")
+                group.collect{
+                    if (it.students.isNotEmpty()) {
+                        Log.e(
+                            Constants.LOG_TAG,
+                            "vm load students with count: ${it.students.count()}"
+                        )
+                        resultMutableStudents.value = it.students
+                    } else {
+                        Log.e(Constants.LOG_TAG, "students list is empty")
+                    }
                 }
             }
         }

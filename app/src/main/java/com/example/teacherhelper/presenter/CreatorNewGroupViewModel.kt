@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 /**
  * Создатель новой группы
+ * @param groupsRepository репозиторий для работы с данными
  */
 @HiltViewModel
 class CreatorNewGroupViewModel @Inject constructor(
@@ -28,10 +29,11 @@ class CreatorNewGroupViewModel @Inject constructor(
 
     /**
      * Создать группу
+     * @param name имя группы
+     * @param description описание группы
      */
     fun addGroup(name: String, description: String) {
         viewModelScope.launch {
-            val groups = groupsRepository.getGroups()
             if (name.isNotEmpty() && description.isNotEmpty()) {
                 val group = Group(
                     id = 0,

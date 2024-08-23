@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 /**
  * View Model для добавления нового студента в группу
+ * @param groupsRepository репозиторий для работы с данными
  */
 @HiltViewModel
 class CreatorNewStudentViewModel @Inject constructor(
@@ -30,21 +31,25 @@ class CreatorNewStudentViewModel @Inject constructor(
 
     /**
      * Добавить студента в группу
-     * @param groupId groupId
+     * @param groupId айди нужной группы
+     * @param name имя студента
+     * @param description описание студента
      */
     fun addStudent(groupId: Int, name: String, description: String) {
         viewModelScope.launch {
             val group = groupsRepository.getGroup(groupId)
-            val student = Student(
-                0,
-                name, description,
-                groupId
-            )
-            if (student.name.isNotEmpty() && student.description.isNotEmpty()) {
-                groupsRepository.insertStudent(
-                    group.group,
-                    student
+            group.collect{
+                val student = Student(
+                    0,
+                    name, description,
+                    groupId
                 )
+                if (student.name.isNotEmpty() && student.description.isNotEmpty()) {
+                    groupsRepository.insertStudent(
+                        it.group,
+                        student
+                    )
+                }
             }
         }
     }
