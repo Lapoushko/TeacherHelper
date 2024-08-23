@@ -7,27 +7,23 @@ import androidx.room.RoomDatabase
 import com.example.teacherhelper.repository.dao.Dao
 import com.example.teacherhelper.util.Constants
 
-//@Database(
-//    entities = [
-//        Group::class, Student::class
-//    ],
-//    version = Constants.VERSION_DATABASE
-//)
 /**
  * База данных группы
  */
-
-
 @Database(
     entities = [
         Group::class,
         Student::class
     ],
-    version = 2
+    version = Constants.VERSION_DATABASE
 )
 abstract class GroupDatabase : RoomDatabase(){
     abstract fun dao(): Dao
     companion object{
+        /**
+         * создать базу данных
+         * @param context текущий контекст
+         */
         fun createDatabase(context: Context): GroupDatabase{
             return Room.databaseBuilder(
                 context = context,
