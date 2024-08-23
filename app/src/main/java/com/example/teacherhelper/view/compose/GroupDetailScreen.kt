@@ -24,6 +24,13 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.teacherhelper.presenter.GroupDetailViewModel
 
+/**
+ * Детальное описание группы
+ * @param vm ViewModel для детального описания группы
+ * @param onAddStudentClick кнопка добавления нового студента
+ * @param onMainClick кнопка на выход к главному экрану
+ * @param groupId айди группы
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
