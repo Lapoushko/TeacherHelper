@@ -3,6 +3,7 @@ package com.example.teacherhelper.repository
 import com.example.teacherhelper.repository.data.Group
 import com.example.teacherhelper.repository.data.Student
 import com.example.teacherhelper.repository.data.StudentByGroup
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Репозиторий групп студентов
@@ -13,31 +14,36 @@ interface GroupsRepository {
      * @param id айди группы
      * @return группа
      */
-    suspend fun getGroup(id: Int): StudentByGroup
+    fun getGroup(id: Int): Flow<StudentByGroup>
 
     /**
      * Получить все группы
      * @return список групп
      */
-    suspend fun getGroups(): List<StudentByGroup>
+    fun getGroups(): Flow<List<StudentByGroup>>
 
     /**
      * Удалить группу
+     * @param group группа
      */
     suspend fun deleteGroup(group: Group)
 
     /**
      * Добавить новую группу
+     * @param group новая группа
      */
     suspend fun insertGroup(group: Group)
 
     /**
      * Обновить группу
+     * @param group нужная группа
      */
     suspend fun updateGroup(group: Group)
 
     /**
      * Добавить нового студента
+     * @param group в какую группу добавить
+     * @param student новый студент
      */
     suspend fun insertStudent(group: Group, student: Student)
 

@@ -4,6 +4,7 @@ import com.example.teacherhelper.repository.dao.Dao
 import com.example.teacherhelper.repository.data.Group
 import com.example.teacherhelper.repository.data.Student
 import com.example.teacherhelper.repository.data.StudentByGroup
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,11 +14,11 @@ import javax.inject.Singleton
 @Singleton
 class GroupsRepositoryImpl @Inject constructor(private val groupDao: Dao) : GroupsRepository {
 
-    override suspend fun getGroup(id: Int): StudentByGroup {
+    override fun getGroup(id: Int): Flow<StudentByGroup> {
         return groupDao.getGroup(id)
     }
 
-    override suspend fun getGroups(): List<StudentByGroup> {
+    override fun getGroups(): Flow<List<StudentByGroup>> {
         return groupDao.getGroups()
     }
 
