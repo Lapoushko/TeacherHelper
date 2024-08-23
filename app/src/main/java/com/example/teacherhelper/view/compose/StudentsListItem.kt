@@ -19,6 +19,8 @@ import com.example.teacherhelper.repository.data.Student
 
 /**
  * Item для отображения группы recycler view
+ * @param student текущий студент
+ * @param onClick кнопка на студента
  */
 @Composable
 fun StudentsListItem(student: Student, onClick: () -> Unit) {

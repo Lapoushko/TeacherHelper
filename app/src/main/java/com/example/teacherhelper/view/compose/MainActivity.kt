@@ -8,16 +8,12 @@ import com.example.teacherhelper.ui.theme.TeacherHelperTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * Первая activity
+ * Основная activity
  */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-//    private val mainViewModel: MainActivityViewModel by viewModels<MainActivityViewModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        Log.e("ViewM", mainViewModel.toString())
         setContent {
             TeacherHelperTheme {
                 TeacherHelperApp().TeacherHelperSet()

@@ -15,6 +15,7 @@ import javax.inject.Inject
 
 /**
  * ViewModel для MainScreen
+ * @param groupsRepository репозиторий для работы с данными
  */
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
@@ -29,17 +30,21 @@ class MainActivityViewModel @Inject constructor(
         loadGroups()
     }
 
+    /**
+     * Загрузка групп
+     */
     private fun loadGroups(){
         viewModelScope.launch {
             if (resultMutableGroups.value.isEmpty()) {
                 val groups = groupsRepository.getGroups()
-                if (groups.isNotEmpty()) {
-                    resultMutableGroups.value = groups
-                    Log.e(Constants.LOG_TAG, "vm load groups with count: ${groups.count()}")
-                } else {
-                    Log.e(Constants.LOG_TAG, "vm is empty")
+                groups.collect{
+                    if (it.isNotEmpty()) {
+                        resultMutableGroups.value = it
+                        Log.e(Constants.LOG_TAG, "vm load groups with count: ${it.count()}")
+                    } else {
+                        Log.e(Constants.LOG_TAG, "vm is empty")
+                    }
                 }
-
             }
         }
     }
@@ -51,19 +56,11 @@ class MainActivityViewModel @Inject constructor(
 
     /**
      * Удалить группу
+     * @param group нужная группа
      */
     fun deleteGroup(group: Group) {
         viewModelScope.launch {
             groupsRepository.deleteGroup(group)
-        }
-    }
-
-    /**
-     * Очистить базу данных
-     */
-    fun dropDatabase(){
-        viewModelScope.launch {
-            groupsRepository.dropDatabase()
         }
     }
 }

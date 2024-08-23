@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +35,9 @@ import com.example.teacherhelper.util.Constants
 
 /**
  * Скрин создания нового студента
+ * @param vm ViewModel для создания нового студента
+ * @param onBackClick кнопка на выход к главному экрану
+ * @param groupId айди текущей группы
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -77,7 +79,7 @@ fun CreatorNewStudentScreen(
                 vm.addStudent(groupId, student.name, student.description)
                 onBackClick()
             }) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Save icon")
+                Icon(imageVector = Icons.Default.Done, contentDescription = "Save icon")
             }
         }
     ) { padding ->

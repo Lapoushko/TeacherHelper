@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 /**
  * VM для реадктирования группы
+ * @param groupsRepository репозиторий для работы с данными
  */
 @HiltViewModel
 class EditGroupViewModel @Inject constructor(

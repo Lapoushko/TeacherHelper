@@ -40,6 +40,9 @@ import com.example.teacherhelper.repository.data.Group
 
 /**
  * Item для отображения группы recycler view
+ * @param group группа
+ * @param dropDownItems список выподающего меню
+ * @param onClick клик на нужную группу
  */
 @Composable
 fun GroupListItem(
@@ -119,6 +122,9 @@ fun GroupListItem(
 
 /**
  * Item для Drop Down кнопок
+ * @param text текст на кнопке
+ * @param icon иконка кнопки
+ * @param onItemClick клик на кнопку
  */
 data class DropDownItem(
     val text: String,

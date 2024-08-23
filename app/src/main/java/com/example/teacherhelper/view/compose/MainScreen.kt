@@ -30,6 +30,10 @@ import com.example.teacherhelper.repository.data.Group
 
 /**
  * Контент основной активности
+ * @param vm ViewModel для работы со скрином
+ * @param onGroupClick клик на группу
+ * @param onAddGroupClick кнопка добавления группы
+ * @param onEditGroupClick кнопка редактирования группы
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

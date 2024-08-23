@@ -28,6 +28,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.teacherhelper.presenter.EditGroupViewModel
 
+/**
+ * Скрин редактирования группы
+ * @param vm ViewModel для редактирования группы
+ * @param onBackClick кнопка на выход к главному экрану
+ * @param groupId айди текущей группы
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditGroupScreen(

@@ -11,9 +11,16 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Модуль для инжектирования базы данных
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule{
+    /**
+     * Инжект для базы данных
+     * @param context контекст приложения
+     */
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext context : Context) =
@@ -21,6 +28,10 @@ object AppModule{
             .fallbackToDestructiveMigration()
             .build()
 
+    /**
+     * инжект для дао
+     * @param appDatabase база данных
+     */
     @Singleton
     @Provides
     fun provideDAO(appDatabase: GroupDatabase): Dao {

@@ -31,6 +31,8 @@ import com.example.teacherhelper.presenter.CreatorNewGroupViewModel
 
 /**
  * Скрин создания новой группы
+ * @param vm ViewModel для создания новой группы
+ * @param onBackClick кнопка на выход к главному экрану
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
