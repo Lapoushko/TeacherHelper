@@ -39,11 +39,11 @@ class MainActivityViewModel @Inject constructor(
                 val groups = groupsRepository.getGroups()
                 groups.collect{
                     if (it.isNotEmpty()) {
-                        resultMutableGroups.value = it
                         Log.e(Constants.LOG_TAG, "vm load groups with count: ${it.count()}")
                     } else {
                         Log.e(Constants.LOG_TAG, "vm is empty")
                     }
+                    resultMutableGroups.value = it
                 }
             }
         }

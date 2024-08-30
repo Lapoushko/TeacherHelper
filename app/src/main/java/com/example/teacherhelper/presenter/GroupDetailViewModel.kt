@@ -47,10 +47,10 @@ class GroupDetailViewModel @Inject constructor(
                             Constants.LOG_TAG,
                             "vm load students with count: ${it.students.count()}"
                         )
-                        resultMutableStudents.value = it.students
                     } else {
                         Log.e(Constants.LOG_TAG, "students list is empty")
                     }
+                    resultMutableStudents.value = it.students
                 }
             }
         }
