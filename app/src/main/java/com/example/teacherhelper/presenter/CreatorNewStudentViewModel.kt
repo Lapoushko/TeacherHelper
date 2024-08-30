@@ -7,6 +7,7 @@ import com.example.teacherhelper.repository.GroupsRepositoryImpl
 import com.example.teacherhelper.repository.data.Student
 import com.example.teacherhelper.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,19 +38,17 @@ class CreatorNewStudentViewModel @Inject constructor(
      */
     fun addStudent(groupId: Int, name: String, description: String) {
         viewModelScope.launch {
-            val group = groupsRepository.getGroup(groupId)
-            group.collect{
-                val student = Student(
-                    0,
-                    name, description,
-                    groupId
+            val group = groupsRepository.getGroup(groupId).first()
+            val student = Student(
+                0,
+                name, description,
+                groupId
+            )
+            if (student.name.isNotEmpty() && student.description.isNotEmpty()) {
+                groupsRepository.insertStudent(
+                    group.group,
+                    student
                 )
-                if (student.name.isNotEmpty() && student.description.isNotEmpty()) {
-                    groupsRepository.insertStudent(
-                        it.group,
-                        student
-                    )
-                }
             }
         }
     }
