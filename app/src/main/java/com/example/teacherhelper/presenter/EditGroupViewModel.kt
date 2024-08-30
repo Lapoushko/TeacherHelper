@@ -29,6 +29,9 @@ class EditGroupViewModel @Inject constructor(
 
     /**
      * Редактирование группы
+     * @param groupId айди группы
+     * @param name новое имя группы
+     * @param description новое описание группы
      */
     fun editGroup(groupId: Int, name: String, description: String) {
         viewModelScope.launch {
