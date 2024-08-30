@@ -29,6 +29,12 @@ interface GroupsRepository {
     suspend fun deleteGroup(group: Group)
 
     /**
+     * Удалить студента
+     * @param student студент
+     */
+    suspend fun deleteStudent(student: Student)
+
+    /**
      * Добавить новую группу
      * @param group новая группа
      */
@@ -39,6 +45,12 @@ interface GroupsRepository {
      * @param group нужная группа
      */
     suspend fun updateGroup(group: Group)
+
+    /**
+     * Обновить студента
+     * @param student нужный студент
+     */
+    suspend fun updateStudent(student: Student)
 
     /**
      * Добавить нового студента

@@ -8,6 +8,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -23,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.teacherhelper.presenter.GroupDetailViewModel
+import com.example.teacherhelper.repository.data.DropDownItem
+import com.example.teacherhelper.repository.data.Student
 
 /**
  * Детальное описание группы
@@ -38,11 +42,12 @@ fun GroupDetailScreen(
     vm: GroupDetailViewModel = hiltViewModel(),
     onMainClick: () -> Unit,
     onAddStudentClick: (Int) -> Unit,
+    onEditStudentClick: (Student) -> Unit,
     groupId: Int
 ) {
     vm.loadStudents(groupId = groupId)
     val students = vm.resultLiveStudents.collectAsState(initial = emptyList())
-    
+
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -79,8 +84,25 @@ fun GroupDetailScreen(
         ) {
             items(
                 items = students.value,
-                itemContent = {
-                    StudentsListItem(student = it) {
+                itemContent = { student ->
+                    StudentsListItem(
+                        student = student,
+                        dropDownItems = listOf(
+                            DropDownItem(
+                                text = "Редактировать",
+                                icon = Icons.Default.Edit,
+                                onItemClick = onEditStudentClick
+                            ),
+                            DropDownItem(
+                                text = "Удалить",
+                                icon = Icons.Default.Delete,
+                                onItemClick = {
+                                    vm.deleteStudent(student = student)
+                                }
+                            )
+                        )
+                    )
+                    {
                     }
                 }
             )

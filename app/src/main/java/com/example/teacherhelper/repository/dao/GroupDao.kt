@@ -40,11 +40,25 @@ interface Dao{
     suspend fun updateGroup(group: Group)
 
     /**
+     * Обновить студента
+     * @param student новый студент
+     */
+    @Update
+    suspend fun updateStudent(student: Student)
+
+    /**
      * Удалить группу
      * @param group нужная группа
      */
     @Delete
     suspend fun deleteGroup(group: Group)
+
+    /**
+     * Удалить студента
+     * @param student нужный студент
+     */
+    @Delete
+    suspend fun deleteStudent(student: Student)
 
     /**
      * Сбросить таблицу groups

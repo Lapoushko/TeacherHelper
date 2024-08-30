@@ -55,4 +55,14 @@ class GroupDetailViewModel @Inject constructor(
             }
         }
     }
+
+    /**
+     * Удалить студента
+     * @param student студент
+     */
+    fun deleteStudent(student: Student){
+        viewModelScope.launch {
+            groupsRepository.deleteStudent(student)
+        }
+    }
 }

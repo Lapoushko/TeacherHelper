@@ -13,7 +13,6 @@ import javax.inject.Singleton
  */
 @Singleton
 class GroupsRepositoryImpl @Inject constructor(private val groupDao: Dao) : GroupsRepository {
-
     override fun getGroup(id: Int): Flow<StudentByGroup> {
         return groupDao.getGroup(id)
     }
@@ -26,12 +25,20 @@ class GroupsRepositoryImpl @Inject constructor(private val groupDao: Dao) : Grou
         groupDao.deleteGroup(group)
     }
 
+    override suspend fun deleteStudent(student: Student) {
+        groupDao.deleteStudent(student)
+    }
+
     override suspend fun insertGroup(group: Group) {
         groupDao.insertGroup(group)
     }
 
     override suspend fun updateGroup(group: Group) {
         groupDao.updateGroup(group)
+    }
+
+    override suspend fun updateStudent(student: Student) {
+        groupDao.updateStudent(student)
     }
 
     override suspend fun insertStudent(group: Group, student: Student) {

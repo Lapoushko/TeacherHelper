@@ -10,6 +10,7 @@ import com.example.teacherhelper.view.Screen
 import com.example.teacherhelper.view.compose.CreatorNewGroupScreen
 import com.example.teacherhelper.view.compose.CreatorNewStudentScreen
 import com.example.teacherhelper.view.compose.EditGroupScreen
+import com.example.teacherhelper.view.compose.EditStudentScreen
 import com.example.teacherhelper.view.compose.GroupDetailScreen
 import com.example.teacherhelper.view.compose.MainScreen
 import dagger.hilt.android.HiltAndroidApp
@@ -64,7 +65,14 @@ class TeacherHelperApp : Application() {
                             Screen.CreateStudent.createRoute(groupId = id)
                         )
                     },
-                    groupId = id
+                    groupId = id,
+                    onEditStudentClick = { student ->
+                        navController.navigate(
+                            Screen.EditStudent.createRoute(
+                                studentId = student.studentId,
+                                groupId = student.groupId)
+                        )
+                    }
                 )
             }
 
@@ -95,6 +103,19 @@ class TeacherHelperApp : Application() {
                 EditGroupScreen(
                     onBackClick = onClickMain(navController),
                     groupId = id
+                )
+            }
+
+            composable(
+                route = Screen.EditStudent.route
+            ) { backStackEntry ->
+                val groupId = backStackEntry.arguments?.getString("groupId")?.toInt()
+                    ?: 0
+                val studentId = backStackEntry.arguments?.getString("studentId")?.toInt() ?: 0
+                EditStudentScreen(
+                    onBackClick = onClickMain(navController),
+                    groupId = groupId,
+                    studentId = studentId
                 )
             }
         }
