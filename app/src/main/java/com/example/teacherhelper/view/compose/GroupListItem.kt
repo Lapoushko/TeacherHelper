@@ -29,13 +29,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.example.teacherhelper.repository.data.DropDownItem
 import com.example.teacherhelper.repository.data.Group
 
 /**
@@ -47,7 +47,7 @@ import com.example.teacherhelper.repository.data.Group
 @Composable
 fun GroupListItem(
     group: Group,
-    dropDownItems: List<DropDownItem>,
+    dropDownItems: List<DropDownItem<Group>>,
     onClick: (Group) -> Unit
 ) {
     var isContextMenuVisible by rememberSaveable {
@@ -119,18 +119,6 @@ fun GroupListItem(
         }
     }
 }
-
-/**
- * Item для Drop Down кнопок
- * @param text текст на кнопке
- * @param icon иконка кнопки
- * @param onItemClick клик на кнопку
- */
-data class DropDownItem(
-    val text: String,
-    val icon: ImageVector,
-    val onItemClick: (Group) -> Unit
-)
 
 @Preview
 @Composable
