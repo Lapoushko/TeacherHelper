@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("dagger.hilt.android.plugin")
+    id("kotlin-kapt")
+    kotlin("kapt")
 }
 
 android {
@@ -17,6 +20,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+
+        kapt {
+            arguments {arg("room.schemaLocation", "$projectDir/schemas")}
         }
     }
 
@@ -59,6 +66,22 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.dagger.hilt.android)
+    implementation(libs.dagger)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(libs.androidx.core)
+    testImplementation(libs.mockk)
+    kapt(libs.dagger.compiler)
+    kapt(libs.hilt.compiler)
+    kapt(libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,4 +89,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+//    implementation("com.google.dagger:hilt-android:2.48")
+//    kapt("androidx.hilt:hilt-compiler:1.2.0")
+//    kapt("com.google.dagger:hilt-android-compiler:1.0.0-alpha01")
 }
+
+
