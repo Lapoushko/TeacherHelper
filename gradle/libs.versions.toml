@@ -25,6 +25,10 @@ roomKtx = "2.6.0"
 roomRuntimeVersion = "2.6.1"
 roomKtxVersion = "2.6.1"
 roomCompilerVersion = "2.6.1"
+core = "1.6.1"
+coreTesting = "2.2.0"
+kotlinJupyterTestKit = "0.12.0-283"
+mockk = "1.13.12"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -63,6 +67,10 @@ androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = 
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntimeVersion" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtxVersion" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompilerVersion" }
+androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
+androidx-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "coreTesting" }
+kotlin-jupyter-test-kit = { group = "org.jetbrains.kotlinx", name = "kotlin-jupyter-test-kit", version.ref = "kotlinJupyterTestKit" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
