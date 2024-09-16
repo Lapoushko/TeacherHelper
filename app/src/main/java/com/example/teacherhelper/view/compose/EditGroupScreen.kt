@@ -26,7 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.teacherhelper.presenter.EditGroupViewModel
+import com.example.teacherhelper.domain.EditGroupViewModel
 
 /**
  * Скрин редактирования группы

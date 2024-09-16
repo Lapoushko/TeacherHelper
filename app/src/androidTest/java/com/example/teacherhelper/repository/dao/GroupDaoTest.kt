@@ -13,21 +13,6 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * Константы для группы
- */
-const val TEST_NAME_GROUP = "Тестовое имя группы"
-const val TEST_DESCRIPTION_GROUP = "Тестовое описание группы"
-
-/**
- * Константы для учеников
- */
-const val TEST_NAME_STUDENT_1 = "Тестовое имя ученика 1"
-const val TEST_NAME_STUDENT_2 = "Тестовое имя ученика 2"
-
-const val TEST_DESCRIPTION_STUDENT_1 = "Тестовое описание ученика 1"
-const val TEST_DESCRIPTION_STUDENT_2 = "Тестовое описание ученика 2"
-
-/**
  * Тестирование DAO
  */
 class GroupDaoTest {
@@ -216,5 +201,22 @@ class GroupDaoTest {
         groupDao.deleteStudent(insertedStudent)
 
         Assert.assertEquals(0, groupDao.getGroup(1).first().students.size)
+    }
+
+    companion object{
+        /**
+         * Константы для группы
+         */
+        const val TEST_NAME_GROUP = "Тестовое имя группы"
+        const val TEST_DESCRIPTION_GROUP = "Тестовое описание группы"
+
+        /**
+         * Константы для учеников
+         */
+        const val TEST_NAME_STUDENT_1 = "Тестовое имя ученика 1"
+        const val TEST_NAME_STUDENT_2 = "Тестовое имя ученика 2"
+
+        const val TEST_DESCRIPTION_STUDENT_1 = "Тестовое описание ученика 1"
+        const val TEST_DESCRIPTION_STUDENT_2 = "Тестовое описание ученика 2"
     }
 }

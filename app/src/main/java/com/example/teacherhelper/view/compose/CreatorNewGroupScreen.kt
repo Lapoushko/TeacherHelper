@@ -27,7 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.teacherhelper.presenter.CreatorNewGroupViewModel
+import com.example.teacherhelper.domain.CreatorNewGroupViewModel
 
 /**
  * Скрин создания новой группы

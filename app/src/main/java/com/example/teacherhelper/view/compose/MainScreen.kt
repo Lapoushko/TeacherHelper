@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.teacherhelper.presenter.MainActivityViewModel
+import com.example.teacherhelper.domain.MainActivityViewModel
 import com.example.teacherhelper.repository.data.DropDownItem
 import com.example.teacherhelper.repository.data.Group
 

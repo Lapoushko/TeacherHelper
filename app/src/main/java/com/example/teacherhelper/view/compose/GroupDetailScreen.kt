@@ -24,7 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.teacherhelper.presenter.GroupDetailViewModel
+import com.example.teacherhelper.domain.GroupDetailViewModel
 import com.example.teacherhelper.repository.data.DropDownItem
 import com.example.teacherhelper.repository.data.Student
 

@@ -1,25 +1,25 @@
-package com.example.teacherhelper.presenter
+package com.example.teacherhelper.domain
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.teacherhelper.repository.GroupsRepositoryImpl
-import com.example.teacherhelper.repository.data.Group
+import com.example.teacherhelper.repository.data.Student
 import com.example.teacherhelper.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * VM для реадктирования группы
+ * VM для редактирования студентов
  * @param groupsRepository репозиторий для работы с данными
  */
 @HiltViewModel
-class EditGroupViewModel @Inject constructor(
+class EditStudentViewModel @Inject constructor(
     private val groupsRepository: GroupsRepositoryImpl
-) : ViewModel() {
+) : ViewModel(){
     init {
-        Log.e(Constants.LOG_TAG, "init editor group vm")
+        Log.e(Constants.LOG_TAG, "init editor student vm")
     }
 
     override fun onCleared() {
@@ -29,19 +29,20 @@ class EditGroupViewModel @Inject constructor(
 
     /**
      * Редактирование группы
-     * @param groupId айди группы
-     * @param name новое имя группы
-     * @param description новое описание группы
+     * @param studentId айди группы
+     * @param name новое имя студента
+     * @param description новое описание студента
      */
-    fun editGroup(groupId: Int, name: String, description: String) {
+    fun editGroup(groupId: Int ,name: String, description: String, studentId: Int) {
         viewModelScope.launch {
             if (name.isNotEmpty() && description.isNotEmpty()) {
-                val group = Group(
-                    id = groupId,
+                val student = Student(
+                    studentId = studentId,
                     name = name,
-                    description = description
+                    description = description,
+                    groupId = groupId
                 )
-                groupsRepository.updateGroup(group)
+                groupsRepository.updateStudent(student)
             }
         }
     }

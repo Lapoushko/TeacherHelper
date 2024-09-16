@@ -29,7 +29,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.teacherhelper.presenter.CreatorNewStudentViewModel
+import com.example.teacherhelper.domain.CreatorNewStudentViewModel
 import com.example.teacherhelper.repository.data.Student
 import com.example.teacherhelper.util.Constants
 

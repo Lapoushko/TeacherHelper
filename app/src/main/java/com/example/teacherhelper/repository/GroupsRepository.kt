@@ -23,22 +23,17 @@ interface GroupsRepository {
     fun getGroups(): Flow<List<StudentByGroup>>
 
     /**
-     * Удалить группу
-     * @param group группа
-     */
-    suspend fun deleteGroup(group: Group)
-
-    /**
-     * Удалить студента
-     * @param student студент
-     */
-    suspend fun deleteStudent(student: Student)
-
-    /**
      * Добавить новую группу
      * @param group новая группа
      */
     suspend fun insertGroup(group: Group)
+
+    /**
+     * Добавить нового студента
+     * @param group в какую группу добавить
+     * @param student новый студент
+     */
+    suspend fun insertStudent(group: Group, student: Student)
 
     /**
      * Обновить группу
@@ -53,11 +48,16 @@ interface GroupsRepository {
     suspend fun updateStudent(student: Student)
 
     /**
-     * Добавить нового студента
-     * @param group в какую группу добавить
-     * @param student новый студент
+     * Удалить группу
+     * @param group группа
      */
-    suspend fun insertStudent(group: Group, student: Student)
+    suspend fun deleteGroup(group: Group)
+
+    /**
+     * Удалить студента
+     * @param student студент
+     */
+    suspend fun deleteStudent(student: Student)
 
     /**
      * Сбросить всю таблицу

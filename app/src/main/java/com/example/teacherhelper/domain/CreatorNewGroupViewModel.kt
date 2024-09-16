@@ -1,4 +1,4 @@
-package com.example.teacherhelper.presenter
+package com.example.teacherhelper.domain
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
